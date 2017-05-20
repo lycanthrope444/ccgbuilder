@@ -2,7 +2,7 @@ var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var deckbuilder = require('./components/deckbuilder.jsx').deckbuilderContainer;
+var deckbuilder = require('./components/deckbuilder.jsx').DeckbuilderContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes : {
