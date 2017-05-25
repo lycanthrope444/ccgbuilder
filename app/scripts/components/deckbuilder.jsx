@@ -16,8 +16,8 @@ class SearchControl extends React.Component {
       decklist : {
         deckName:'Deck Name',
         cardList: [
-          {cardName: 'test 1', qty: 1},
-          {cardName: 'test 2', qty: 1}
+          {cardName: 'Test 1', qty: 1},
+          {cardName: 'Test 2', qty: 1}
         ]
       },
       searchResults : ['test']
@@ -79,6 +79,18 @@ class Decklist extends React.Component {
       return (
         <div key={index}>
           {item.cardName}
+          <button className="btn" onClick={(e)=>{
+              e.preventDefault();
+              console.log('add clicked');
+            }}>
+            Add
+          </button>
+          <button className="btn" onClick={(e)=>{
+              e.preventDefault();
+              console.log('delete clicked');
+            }}>
+            Delete
+          </button>
         </div>
       )
     });
