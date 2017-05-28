@@ -1,5 +1,8 @@
 var React = require('react');
 
+var demoDeck = require('../models/demodeck.js').demodeck;
+var demoCards = require('../models/democards.js').demoCards;
+
 class DeckbuilderContainer extends React.Component {
   render(){
     return (
@@ -20,7 +23,7 @@ class SearchControl extends React.Component {
           {cardName: 'Test 2', qty: 1}
         ]
       },
-      searchResults : ['test']
+      cardPool : demoCards
     }
   }
   render(){
@@ -29,7 +32,7 @@ class SearchControl extends React.Component {
     return (
       <div>
         <SearchOptions />
-        <SearchResults searchResults = {self.state.searchResults} />
+        <SearchResults cardPool = {self.state.cardPool} />
         <Decklist decklist = {self.state.decklist} />
       </div>
     )
@@ -49,12 +52,29 @@ class SearchOptions extends React.Component {
 class SearchResults extends React.Component {
   constructor(props){
     super(props);
+
+    var cardPool = this.props.cardPool;
+
+    this.state = {
+      cardPool
+    }
   }
   render(){
     console.log(this.props);
+    var cardDisplay = this.state.cardPool.map((item, index)=>{
+      return (
+        <li key={index}>{item.cardName}</li>
+      )
+    });
+
     return (
       <div className="search-results col-xs-6">
-        Results
+        <div>
+          Results
+        </div>
+        <ul>
+          {cardDisplay}
+        </ul>
       </div>
     )
   }
