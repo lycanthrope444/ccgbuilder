@@ -15,16 +15,28 @@ class SearchControl extends React.Component {
   constructor(props){
     super(props);
 
+    this.addCard=this.addCard.bind(this);
+
     this.state = {
       decklist : {
         deckName:'Deck Name',
         cardList: [
-          {cardName: 'Test 1', qty: 1},
-          {cardName: 'Test 2', qty: 1}
+          // {cardName: 'Test 1', qty: 1},
+          // {cardName: 'Test 2', qty: 1}
         ]
       },
       cardPool : demoCards
     }
+  }
+  addCard(card, qty){
+    console.log(card, qty, "control click");
+    console.log(this);
+    var list = this.state.decklist.cardList;
+
+    list.push({
+      card, qty
+    });
+    console.log(list);
   }
   render(){
     var self = this;
@@ -32,8 +44,9 @@ class SearchControl extends React.Component {
     return (
       <div>
         <SearchOptions />
-        <SearchResults cardPool = {self.state.cardPool} />
-        <Decklist decklist = {self.state.decklist} />
+        <SearchResults cardPool = {this.state.cardPool}
+          addCard={this.addCard}/>
+        <Decklist decklist = {this.state.decklist} />
       </div>
     )
   }
@@ -55,15 +68,39 @@ class SearchResults extends React.Component {
 
     var cardPool = this.props.cardPool;
 
+    this.addCard=this.addCard.bind(this);
+
     this.state = {
       cardPool
     }
+  }
+  addCard(card, qty){
+    var number = qty || 1;
+    this.props.addCard(card, number);
   }
   render(){
     console.log(this.props);
     var cardDisplay = this.state.cardPool.map((item, index)=>{
       return (
-        <li key={index}>{item.cardName}</li>
+        <li key={index}>
+          {item.cardName}
+
+          <button className="btn btn-primary"
+            onClick = {(e)=>{
+              e.preventDefault();
+              this.addCard(item, 1);
+            }}>
+            Add 1
+          </button>
+
+          <button className="btn btn-primary"
+            onClick = {(e)=>{
+              e.preventDefault();
+              this.addCard(item, 2);
+            }}>
+            Add 2
+          </button>
+        </li>
       )
     });
 
